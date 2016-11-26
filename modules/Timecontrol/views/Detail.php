@@ -13,25 +13,30 @@
  * License terms of Creative Commons Attribution-NonCommercial-ShareAlike 3.0 (the License).
  * *********************************************************************************** */
 
+//------------------
+// BEGIN ALGOMA HACK
+//------------------
 class Timecontrol_Detail_View extends Vtiger_Detail_View {
 
 	public function process(Vtiger_Request $request) {
-		global $current_user;
+            
+		global $current_user;                               
+                
 		$viewer = $this->getViewer($request);
 		$recordModel = $this->record->getRecord();
 		if ($recordModel->get('date_end')=='') {
 		  $date = $recordModel->get('date_start');
-		  $time = $recordModel->get('time_start');
-		  list($year, $month, $day) = split('-', $date);
-		  list($hour, $minute) = split(':', $time);
-		  $starttime = mktime($hour, $minute, 0, $month, $day, $year);
-		  // las sgtes líneas deberían bastar para calcular el tiempo en función de la zona horario del usuario
-// 		  $datetimefield = new DateTimeField('');
-// 		  list($year, $month, $day) = split('-', $datetimefield->getDBInsertDateValue($current_user));
-// 		  list($hour, $minute) = split(':', $datetimefield->getDBInsertTimeValue($current_user));
-// 		  $nowtime = mktime($hour, $minute, 0, $month, $day, $year);
-		  $nowtime = time();
-		  $counter = $nowtime-$starttime;
+		  $time = $recordModel->get('time_start');              
+                  
+                  
+                  $usersTimezone = $current_user->column_fields['time_zone'];
+                  $tz = new DateTimeZone($usersTimezone);
+                  
+                  $dateStart = DateTime::createFromFormat('Y-m-d H:i:s', $date .' '. $time, $tz);
+                  $dateTo = new DateTime();
+                  $dateTo->setTimeZone($tz);
+                  
+                  $counter= $dateTo->getTimestamp() - $dateStart->getTimestamp();
 		  $viewer->assign('SHOW_WATCH', 'started');
 		  $viewer->assign('WATCH_COUNTER', $counter);
 		}
@@ -42,3 +47,6 @@ class Timecontrol_Detail_View extends Vtiger_Detail_View {
 		parent::process($request);
 	}
 }
+//----------------
+// END ALGOMA HACK
+//----------------

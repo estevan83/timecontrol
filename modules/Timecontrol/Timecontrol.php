@@ -247,31 +247,32 @@ class Timecontrol extends Vtiger_CRMEntity {
 	}
 	
 	/**     Update Related Entities   */
-	function updateRelatedEntities($tcid) {
-		global $adb;
-		$relid=$adb->query_result($adb->query("select relatedto from vtiger_timecontrol where timecontrolid=$tcid"),0,0);
-		if (empty($relid)) return true;
-		if ($this->sumup_HelpDesk and getSalesEntityType($relid)=='HelpDesk') {
-			$query = "select round(sum(time_to_sec(totaltime))/3600) as stt
+    function updateRelatedEntities($tcid) {
+        global $adb;
+        $relid = $adb->query_result($adb->query("select relatedto from vtiger_timecontrol where timecontrolid=$tcid"), 0, 0);
+        if (empty($relid)){
+            return true;
+        }
+            
+        if ($this->sumup_HelpDesk and getSalesEntityType($relid) == 'HelpDesk') {
+            $query = "select round(sum(time_to_sec(totaltime))/3600) as stt
 			from vtiger_timecontrol
 			inner join vtiger_crmentity on crmid=timecontrolid
 			where relatedto=$relid and deleted=0";
-			$res = $adb->query($query);
-			$stt = $adb->query_result($res, 0, 'stt');
-			$query = "update vtiger_troubletickets set hours='$stt' where ticketid=$relid";
-			$adb->query($query);
-		}
-		if ($this->sumup_ProjectTask and getSalesEntityType($relid)=='ProjectTask') {
-			$query = "select sec_to_time(sum(time_to_sec(totaltime))) as stt
+            $res = $adb->query($query);
+            $stt = $adb->query_result($res, 0, 'stt');
+            $adb->pquery("update vtiger_troubletickets set hours=? where ticketid=?", array($stt, $relid));
+        }
+        if ($this->sumup_ProjectTask and getSalesEntityType($relid) == 'ProjectTask') {
+            $query = "select sec_to_time(sum(time_to_sec(totaltime))) as stt
 			from vtiger_timecontrol
 			inner join vtiger_crmentity on crmid=timecontrolid
 			where relatedto=$relid and deleted=0";
-			$res = $adb->query($query);
-			$stt = $adb->query_result($res, 0, 'stt');
-			$query = "update vtiger_projecttask set projecttaskhours='$stt' where projecttaskid=$relid";
-			$adb->query($query);
-		}
-	}
+            $res = $adb->query($query);
+            $stt = $adb->query_result($res, 0, 'stt');
+            $adb->query("update vtiger_projecttask set projecttaskhours=? where projecttaskid=?", array($stt ,$relid));
+        }
+    }
 	
 	function trash($module,$record) {
 		global $adb;
