@@ -8,36 +8,32 @@
  * All Rights Reserved.
  ************************************************************************************/
 
-$languageStrings = Array(
-        'Timecontrol' => 'TimeControl',
-        'SINGLE_Timecontrol'=>'TimeControl',
-        'Timecontrol ID' => 'ID TimeControl',
-
-        'LBL_CUSTOM_INFORMATION' => 'Informazioni Personalizzate',
-        'LBL_TIMECONTROL_INFORMATION' => 'Info TimeControl',
-        'LBL_DESCRIPTION_INFORMATION' => 'Descrizione',
-       
-        'LBL_WATCH_STOP'=>'Stop',
-        'LBL_WATCH_RESTART'=>'Riprendi',
-       
-        'Timecontrol Number' => "Numero attivit&agrave;",
-        'Title' => "Titolo",
-        'Related Concept' => "Concetto Relazionato",
-        'Date Start' => "Data Inizio",
-        'Time Start' => "Ora Inizio",
-        'Date End' => "Data Fine",
-        'Time End' => "Ora Fine",
-        'TotalTime' => "Tempo totale",
-        'Related To' => "Relazionato A",
-        'Product Name' => "Prodotti/Servizi",
-        'Units' => 'Unit&agrave;',
-	'Stopwatch'=>'Stopwatch',
-	'TotalDayTime'=>'Total Day Time',
-	'TotalDayHours'=>'Total Day Hours',
-	
-	'relatednum' => 'Related Num',
-	'relatedname' => 'Related Name',
-	
+$languageStrings = array(
+    "Timecontrol" => "TimeControl",
+    "SINGLE_Timecontrol" => "TimeControl",
+    "Timecontrol ID" => "ID TimeControl",
+    "LBL_CUSTOM_INFORMATION" => "Informazioni Personalizzate",
+    "LBL_TIMECONTROL_INFORMATION" => "Info TimeControl",
+    "LBL_DESCRIPTION_INFORMATION" => "Descrizione",
+    "LBL_WATCH_STOP" => "Stop",
+    "LBL_WATCH_RESTART" => "Riprendi",
+    "Timecontrol Number" => "Numero attività",
+    "Title" => "Titolo",
+    "Related Concept" => "Tipo attività",
+    "Date Start" => "Data Inizio",
+    "Time Start" => "Ora Inizio",
+    "Date End" => "Data Fine",
+    "Time End" => "Ora Fine",
+    "TotalTime" => "Tempo totale",
+    "Related To" => "Relazionato A",
+    "Product Name" => "Prodotti/Servizi",
+    "Units" => "Unità",
+    "Stopwatch" => "Stopwatch",
+    "TotalDayTime" => "Totale giorni",
+    "TotalDayHours" => "Totale ore",
+    "relatednum" => "Relazionato a",
+    "relatedname" => "Relazionato a",
 );
 
-?>
+$jsLanguageStrings = array(
+);
