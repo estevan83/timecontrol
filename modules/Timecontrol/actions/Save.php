@@ -16,15 +16,17 @@
 class Timecontrol_Save_Action extends Vtiger_Save_Action {
 
 	public function process(Vtiger_Request $request) {
-		if ($request->get('stop_watch')) {
-			$date = new DateTimeField(null);
-			$request->set('date_end',$date->getDisplayDate($current_user));
-			$request->set('time_end',$date->getDisplayTime($current_user));
-		}
-		if ($request->get('date_end')=='' || $request->get('time_end')=='') {
-			$request->set('date_end','');
-			$request->set('time_end','');
-		}
-		parent::process($request);
+            global $current_user;
+            
+            if ($request->get('stop_watch')) {
+                    $date = new DateTimeField(null);
+                    $request->set('date_end',$date->getDisplayDate($current_user));
+                    $request->set('time_end',$date->getDisplayTime($current_user));
+            }
+            if ($request->get('date_end')=='' || $request->get('time_end')=='') {
+                    $request->set('date_end','');
+                    $request->set('time_end','');
+            }
+            parent::process($request);
 	}
 }
